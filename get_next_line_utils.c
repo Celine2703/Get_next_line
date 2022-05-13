@@ -10,6 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
 char	*ft_strncpy(char *str, int n)
 {
 	char	*s;
@@ -18,11 +32,14 @@ char	*ft_strncpy(char *str, int n)
 	if (!str)
 		return (0);
 	s = malloc(sizeof(char) * (n + 1));
-	if (!)
+	if (!s)
 		return (0);
 	i = 0;
 	while (str[i] && (i < n))
-		s[i] = str[i++];
+	{
+		s[i] = str[i];
+		i++;
+	}
 	free(str);
 	return (s);
 }
@@ -45,6 +62,8 @@ char	*ft_strdup(const char *src)
 {
 	char	*new_str;
 
+	if (!src)
+		return (0);
 	new_str = malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (new_str == 0)
 		return (0);
@@ -52,7 +71,7 @@ char	*ft_strdup(const char *src)
 	return (new_str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -60,14 +79,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		taille;
 
 	if (!s1)
-		return (s2);
+		return (0);
 	taille = ft_strlen(s1) + ft_strlen(s2);
 	final = malloc(sizeof(char) * taille + 1);
 	if (final == 0)
 		return (0);
 	i = 0;
 	while (s1[i])
-		final[i] = s1[i++];
+	{
+		final[i] = s1[i];
+		i++;
+	}
 	j = 0;
 	while (s2[j])
 		final[i++] = s2[j++];

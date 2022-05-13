@@ -15,11 +15,14 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stddef.h>
+# include <stdio.h>
 
 char	*ft_strncpy(char *str, int n);
 char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strdup(const char *src);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
+size_t	ft_strlen(const char *str);
 
 #endif
