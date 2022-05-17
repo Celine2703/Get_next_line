@@ -24,5 +24,7 @@ char	*ft_strdup(const char *src);
 char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
+void	*ft_calloc(size_t size, size_t espace);
+char	*ft_reste(char **str, char *ligne, int indic);
 
 #endif

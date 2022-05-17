@@ -12,81 +12,87 @@
 
 #include "get_next_line.h"
 
-//regarde str[i] ca rend tout le reste sinon
+void	*ft_calloc(size_t size, size_t espace)
+{
+	void		*tab;
+	size_t		cpt;
+	size_t		taille;
+
+	taille = espace * size;
+	if (size == 0 || espace == 0)
+		return (0);
+	if (taille / size != espace)
+		return (0);
+	cpt = 0;
+	tab = malloc(taille);
+	if (tab == 0)
+		return (0);
+	while (cpt < taille)
+	{
+		((char *)tab)[cpt] = 0;
+		cpt ++;
+	}
+	return (tab);
+}
+
+char	*ft_reste(char **str, char *ligne, int indic)
+{
+	int		i;
+	char	*temp;
+
+	if (!(*str) || (*str)[0] == 0)
+	{
+		if (ligne[0] == 0)
+		{
+			free(ligne);
+			return (0);
+		}
+		return (ligne);
+	}
+	if (indic == 1)
+		return (ft_strjoin(*str, ligne));
+	i = 0;
+	*str = ft_strjoin(*str, ligne);
+	while ((*str)[i] != 0 && (*str)[i] != '\n')
+		i++;
+	temp = ft_strdup(*str);
+	free(*str);
+	*str = ft_strdup(temp + i + 1);
+	if ((*str)[0] == 0)
+	{
+		free(*str);
+		*str = 0;
+	}
+	return (ft_strncpy(temp, i + 1));
+}
 
 char	*get_next_line(int fd)
 {
 	static char	*str;
-	int			i;
 	char		*ligne;
 	int			verif;
-	char		*temp;
+	int			i;
 
-	ligne = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	ligne = ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!ligne)
 		return (0);
 	verif = read(fd, ligne, BUFFER_SIZE);
-	ligne[verif] = 0;
 	if (verif == -1)
+	{
+		free(ligne);
 		return (0);
+	}
+	if (verif != BUFFER_SIZE)
+		return (ft_reste(&str, ligne, 1));
 	if (!str)
-		str = ft_strdup("");
-	if (verif == BUFFER_SIZE)
+		str = ft_calloc(sizeof(char), 1);
+	i = 0;
+	while (ligne[i] && ligne[i] != '\n')
+		i++;
+	if (verif == i && ligne[i] != '\n')
 	{
-		i = 0;
-		while (ligne[i] && ligne[i] != '\n')
-			i++;
-		if (i == verif)
-		{
-			temp = ft_strdup(str);
-			free(str);
-			str = ft_strjoin(temp, ligne);
-			return (get_next_line(fd));
-		}
-		else
-		{
-			temp = ft_strdup(str);
-			free(str);
-			str = ft_strdup(ligne + i + 1);
-			return (ft_strjoin(temp, ft_strncpy(ligne, i + 1)));
-		}
+		str = ft_strjoin(str, ligne);
+		return (get_next_line(fd));
 	}
-	else
-	{
-		i = 0;
-		while (ligne[i] && ligne[i] != '\n')
-			i++;
-		if (i == verif)
-		{
-			temp = ft_strdup(str);
-			return (ft_strjoin(temp, ligne));
-		}
-		else
-		{
-			temp = ft_strdup(str);
-			free(str);
-			str = ft_strdup(ligne + i + 1);
-			return (ft_strjoin(temp, ft_strncpy(ligne, i + 1)));
-		}
-	}
-}
-
-#include <fcntl.h>
-
-int main()
-{
-	char *sr;
-	
-	int fd = open("./get_next_line.h", O_RDONLY);
-	sr = get_next_line(fd);
-	printf("ligne 1 :%s", sr);
-	sr = get_next_line(fd);
-	printf("ligne 2 :%s", sr);
-	sr = get_next_line(fd);
-	printf("ligne 3 :%s", sr);
-	sr = get_next_line(fd);
-	printf("ligne 4 :%s", sr);
-	sr = get_next_line(fd);
-	printf("ligne 5 :%s", sr);
-	close(fd);
+	return (ft_reste(&str, ligne, 0));
 }
