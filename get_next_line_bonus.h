@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
 # include <stdio.h>
 
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd);
-void	*ft_calloc(size_t size, size_t espace);
-char	*ft_read(char **str, int fd);
-size_t	ft_strlen(const char *str);
-int	ft_strstr(char *str);
+int		ft_strstr(char *str);
 char	*ft_strncpy(char *str, int n);
 char	*ft_strdup(char *src);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+void	ft_free(char **str, char *new);
+size_t	ft_strlen(const char *str);
+void	*ft_calloc(size_t size, size_t espace);
+char	*ft_read(char **str, int fd);
+char	*get_next_line(int fd);
 
 #endif

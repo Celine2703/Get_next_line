@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strstr(char *str)
 {
@@ -35,7 +35,7 @@ char	*ft_strncpy(char *str, int n)
 
 	if (!str)
 		return (0);
-	s = malloc(sizeof(char) * (n + 1));
+	s = ft_calloc(sizeof(char), n + 1);
 	if (!s)
 		return (0);
 	i = 0;
@@ -44,19 +44,17 @@ char	*ft_strncpy(char *str, int n)
 		s[i] = str[i];
 		i++;
 	}
-	s[i] = 0;
-	free(str);
 	return (s);
 }
 
 char	*ft_strdup(char *src)
 {
 	char	*new_str;
-	int	i;
+	int		i;
 
 	if (!src)
 		return (0);
-	new_str = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	new_str = ft_calloc(sizeof(char), ft_strlen(src) + 1);
 	if (new_str == 0)
 		return (0);
 	i = 0;
@@ -65,8 +63,6 @@ char	*ft_strdup(char *src)
 		new_str[i] = src[i];
 		i++;
 	}
-	new_str[i] = 0;
-	free(src);
 	return (new_str);
 }
 
@@ -81,7 +77,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (0);
 	if (ft_strlen(s + start) <= len)
 		len = ft_strlen(s + start);
-	str = malloc(sizeof(char) * len + 1);
+	str = ft_calloc(sizeof(char), len + 1);
 	if (!str)
 		return (0);
 	i = 0;
@@ -90,7 +86,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		str[i++] = s[start++];
 		len--;
 	}
-	str[i] = 0;
 	return (str);
 }
 
@@ -102,7 +97,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		taille;
 
 	taille = ft_strlen(s1) + ft_strlen(s2);
-	final = malloc(sizeof(char) * (taille + 1));
+	final = ft_calloc(sizeof(char), taille + 1);
 	if (final == 0)
 		return (0);
 	i = 0;
@@ -114,8 +109,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	j = 0;
 	while (s2 && s2[j])
 		final[i++] = s2[j++];
-	final[i] = 0;
-	free(s1);
-	free(s2);
 	return (final);
 }

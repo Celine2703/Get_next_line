@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_free(char **str, char *new)
 {
@@ -84,18 +84,18 @@ char	*ft_read(char **str, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[1025];
 	char		*ligne;
 	char		*temp;
 
-	if (str && ft_strstr(str) != -1)
+	if (str[fd] && ft_strstr(str[fd]) != -1)
 	{
-		temp = ft_substr(str, ft_strstr(str) + 1,
-				ft_strlen(str) - ft_strstr(str) - 1);
-		ligne = ft_strncpy(str, ft_strstr(str) + 1);
-		free(str);
-		str = temp;
+		temp = ft_substr(str[fd], ft_strstr(str[fd]) + 1,
+				ft_strlen(str[fd]) - ft_strstr(str[fd]) - 1);
+		ligne = ft_strncpy(str[fd], ft_strstr(str[fd]) + 1);
+		free(str[fd]);
+		str[fd] = temp;
 		return (ligne);
 	}
-	return (ft_read(&str, fd));
+	return (ft_read(&str[fd], fd));
 }

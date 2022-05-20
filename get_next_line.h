@@ -18,13 +18,15 @@
 # include <stddef.h>
 # include <stdio.h>
 
+int		ft_strstr(char *str);
 char	*ft_strncpy(char *str, int n);
-char	*ft_strcpy(char *dest, const char *src);
-char	*ft_strdup(const char *src);
+char	*ft_strdup(char *src);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd);
+void	ft_free(char **str, char *new);
 size_t	ft_strlen(const char *str);
 void	*ft_calloc(size_t size, size_t espace);
-char	*ft_reste(char **str, char *ligne, int indic);
+char	*ft_read(char **str, int fd);
+char	*get_next_line(int fd);
 
 #endif
