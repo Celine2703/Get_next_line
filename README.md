@@ -1,4 +1,4 @@
-# Get_next_line 42
+GET NEXT LINE 42
 
 This project is a function able to read files line by line by using static variables.
 
@@ -30,4 +30,5 @@ It means that you should be able to call get_next_line() to read from fd 3, then
 fd 4, then 5, then once again 3, once again 4, and so forth.
 
 This project doesn't contain a Makefile so you have to compile all the files to use the "get_next_line" bonus function :
-gcc get_next_line_bonus.c get_next_line_utils_bonus.c get_next_line_bonus.h
+
+    gcc get_next_line_bonus.c get_next_line_utils_bonus.c get_next_line_bonus.h
